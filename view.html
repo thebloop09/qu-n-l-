@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Xem Thiệp mời</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-shell" style="display: flex; justify-content: center;">
+        <section class="preview-panel" style="max-width: 600px; width: 100%;">
+            <div id="cardDisplay" class="preview-frame"></div>
+        </section>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const encoded = params.get('data');
+
+        function renderCard(data) {
+            if (!data) {
+                document.getElementById('cardDisplay').innerHTML = "<h2 style='text-align:center'>Không tìm thấy thiệp mời này!</h2>";
+                return;
+            }
+
+            document.getElementById('cardDisplay').innerHTML = `
+                <div id="previewCard" class="${data.theme || 'theme-elegant'}">
+                    <p class="event-type">${data.type || 'Sự kiện'}</p>
+                    <h1>${data.title || 'Tiêu đề thiệp'}</h1>
+                    <p>${data.msg || 'Thông điệp sẽ hiện ở đây'}</p>
+                    <div class="info-box">
+                        <p><strong>📅 Ngày:</strong> <span>${data.date || 'Chưa chọn'}</span></p>
+                        <p><strong>📍 Địa điểm:</strong> <span>${data.loc || 'Chưa chọn'}</span></p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function base64UrlDecode(value) {
+            const padded = value.padEnd(value.length + (4 - (value.length % 4)) % 4, '=');
+            return decodeURIComponent(atob(padded.replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        }
+
+        function init() {
+            let data = null;
+            if (encoded) {
+                try {
+                    data = JSON.parse(base64UrlDecode(encoded));
+                } catch (e) {
+                    data = null;
+                }
+            }
+
+            renderCard(data);
+        }
+
+        init();
+    </script>
+</body>
+</html>

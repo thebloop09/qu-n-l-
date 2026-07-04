@@ -2,36 +2,37 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RANDOM TIME !</title>
+    <title>Đăng nhập - Thiệp mời điện tử</title>
+    <!-- Đã sửa liên kết CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="container">
-        <h1>🎲 Random Number</h1>
-        
-        <div class="input-group">
-            <div class="field">
-                <label>Min Number</label>
-                <input type="number" id="min" value="1">
+    <div class="auth-container">
+        <h2>Hệ thống Thiệp mời</h2>
+        <form id="authForm">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Mật khẩu" required>
+            <div class="btn-group">
+                <button type="button" id="btnSignIn">Đăng nhập</button>
+                <button type="button" id="btnSignUp">Đăng ký</button>
             </div>
-            <div class="field">
-                <label>Max Number</label>
-                <input type="number" id="max" value="100">
-            </div>
+        </form>
+        <div id="quickLoginHint" style="margin-top: 16px; padding: 12px; background: rgba(79,70,229,0.08); border-radius: 8px; font-size: 13px; color: var(--text-sub); text-align: center; display: none;">
+            <strong>💡 Gợi ý:</strong> Bạn có thể đăng nhập từ trình duyệt khác với cùng email và mật khẩu.
         </div>
-
-        <button id="btn-random">RANDOM NOW 🎲</button>
-
-        <div class="result-area">
-            <p>Result</p>
-            <div id="result-text">--</div>
-        </div>
-
-        <p id="error-message" class="error"></p>
     </div>
-
-    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        // Hiển thị gợi ý nếu đã có email được lưu
+        window.addEventListener('load', () => {
+            const lastEmail = localStorage.getItem('last_auth_email');
+            if (lastEmail) {
+                document.getElementById('email').value = lastEmail;
+                document.getElementById('quickLoginHint').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>

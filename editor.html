@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thiết kế thiệp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="editor-layout">
+        <div class="form-side">
+            <h2>Thiết kế thiệp</h2>
+            
+            <div class="input-group">
+                <label>Loại sự kiện</label>
+                <select id="eventType">
+                    <option value="LỄ CƯỚI">Đám cưới</option>
+                    <option value="SINH NHẬT">Sinh nhật</option>
+                    <option value="KHAI TRƯƠNG">Khai trương</option>
+                    <option value="TIỆC TỐI">Tiệc thân mật</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Tiêu đề chính (Tên chủ tiệc/Sự kiện)</label>
+                <input type="text" id="mainTitle" placeholder="Ví dụ: Anh Tuấn & Lan Anh">
+            </div>
+
+            <div class="input-group">
+                <label>Thông điệp</label>
+                <input type="text" id="subMessage" placeholder="Ví dụ: Trân trọng kính mời...">
+            </div>
+
+            <div class="input-group">
+                <label>Ngày diễn ra</label>
+                <input type="date" id="eventDate">
+            </div>
+
+            <div class="input-group">
+                <label>Địa điểm</label>
+                <input type="text" id="location" placeholder="Tên sảnh, địa chỉ...">
+            </div>
+
+            <div class="input-group">
+                <label>Giao diện (Template)</label>
+                <select id="themeSelect">
+                    <option value="theme-elegant">Elegant (Sang trọng)</option>
+                    <option value="theme-vibrant">Vibrant (Năng động)</option>
+                    <option value="theme-pro">Professional (Chuyên nghiệp)</option>
+                </select>
+            </div>
+
+            <button id="btnSave" class="btn-primary" style="width: 100%">Lưu và Xuất bản</button>
+            <button onclick="location.href='dashboard.html'" class="btn-secondary" style="width: 100%; margin-top: 10px">Hủy bỏ</button>
+        </div>
+
+        <div class="preview-side">
+            <div id="previewCard" class="theme-elegant">
+                <p class="event-type" id="viewType">LỄ CƯỚI</p>
+                <h1 id="viewTitle">Tên chủ tiệc</h1>
+                <p id="viewMessage">Trân trọng kính mời bạn...</p>
+                <div class="info-box">
+                    <p><strong>📅 Ngày:</strong> <span id="viewDate">--/--/----</span></p>
+                    <p><strong>📍 Địa điểm:</strong> <span id="viewLocation">Chưa cập nhật</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

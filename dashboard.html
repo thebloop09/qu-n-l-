@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Bảng điều khiển</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div style="font-weight: 700; font-size: 20px; color: var(--primary)">INVITO</div>
+        <div>
+            <span id="userEmail" style="margin-right: 15px; color: var(--text-sub)">Đang tải...</span>
+            <button class="btn-danger" onclick="logout()">Đăng xuất</button>
+        </div>
+    </header>
+    <main>
+        <div class="header-flex">
+            <h1>Thiệp của bạn</h1>
+            <button class="btn-primary" onclick="location.href='editor.html'">+ Tạo thiệp mới</button>
+        </div>
+        <div id="invitationList" class="grid-list">
+            <!-- Danh sách thiệp sẽ render ở đây -->
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="storage.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
