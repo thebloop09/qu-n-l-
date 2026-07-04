@@ -60,9 +60,46 @@ async function handleSignUp() {
     const password = document.getElementById('password').value;
     if (!email || !password) return alert('Vui lòng nhập đầy đủ!');
 
-    const { error } = await supabase.auth.signUp({ email, password });
-    if (error) alert('Lỗi: ' + error.message);
-    else alert('Đăng ký thành công! Hãy đăng nhập.');
+    // Đăng ký tài khoản
+    const { data, error } = await supabase.auth.signUp({ email, password });
+    if (error) return alert('Lỗi đăng ký: ' + error.message);
+
+    // Thử đăng nhập ngay để tạo session và khởi tạo dữ liệu mặc định
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+    if (signInError) {
+        // Nếu không thể đăng nhập tự động, yêu cầu người dùng đăng nhập thủ công
+        alert('Đăng ký thành công! Vui lòng đăng nhập.');
+        return;
+    }
+
+    const user = signInData.user || (data && data.user);
+    if (user) {
+        await SessionManager.saveSession(user);
+
+        // Tạo mẫu thiệp mời mẫu cho người dùng mới
+        try {
+            const samples = [
+                { type: 'LỄ CƯỚI', title: 'Mẫu Elegant', msg: 'Trân trọng kính mời quý khách tới dự lễ thành hôn của chúng tôi.', date: '', loc: '', theme: 'theme-elegant' },
+                { type: 'SINH NHẬT', title: 'Mẫu Modern', msg: 'Chung vui bên nhau trong ngày sinh nhật.', date: '', loc: '', theme: 'theme-modern' },
+                { type: 'TIỆC TỐI', title: 'Mẫu Floral', msg: 'Hân hạnh đón tiếp quý vị trong buổi tiệc.', date: '', loc: '', theme: 'theme-floral' },
+                { type: 'LỄ CƯỚI', title: 'Mẫu Minimal', msg: 'Một thiết kế tối giản, tinh tế cho buổi lễ của bạn.', date: '', loc: '', theme: 'theme-minimal' },
+                { type: 'KHAI TRƯƠNG', title: 'Mẫu Classic', msg: 'Kính mời quý khách đến dự buổi khai trương trọng thể.', date: '', loc: '', theme: 'theme-classic' },
+                { type: 'SINH NHẬT', title: 'Mẫu Boho', msg: 'Một buổi tiệc ấm cúng với phong cách boho.', date: '', loc: '', theme: 'theme-boho' },
+                { type: 'TIỆC TỐI', title: 'Mẫu Gold', msg: 'Thư mời sang trọng với hoạ tiết vàng kim.', date: '', loc: '', theme: 'theme-gold' },
+                { type: 'SỰ KIỆN', title: 'Mẫu Vibrant', msg: 'Sôi động và bắt mắt — phù hợp cho sự kiện hiện đại.', date: '', loc: '', theme: 'theme-vibrant' },
+                { type: 'HỘI NGHỊ', title: 'Mẫu Professional', msg: 'Thiết kế chuyên nghiệp cho hội nghị và sự kiện doanh nghiệp.', date: '', loc: '', theme: 'theme-professional' }
+            ];
+
+            samples.forEach(s => Storage.save(user.id, s));
+        } catch (e) {
+            console.warn('Không thể tạo mẫu mặc định:', e);
+        }
+
+        // Chuyển hướng tới dashboard
+        window.location.href = getReturnUrl();
+    } else {
+        alert('Đăng ký thành công. Vui lòng kiểm tra email để xác nhận nếu cần và đăng nhập.');
+    }
 }
 
 async function handleSignIn() {

@@ -24,15 +24,19 @@
 
             document.getElementById('cardDisplay').innerHTML = `
                 <div id="previewCard" class="${data.theme || 'theme-elegant'}">
-                    <p class="event-type">${data.type || 'Sự kiện'}</p>
-                    <h1>${data.title || 'Tiêu đề thiệp'}</h1>
-                    <p>${data.msg || 'Thông điệp sẽ hiện ở đây'}</p>
-                    <div class="info-box">
-                        <p><strong>📅 Ngày:</strong> <span>${data.date || 'Chưa chọn'}</span></p>
-                        <p><strong>📍 Địa điểm:</strong> <span>${data.loc || 'Chưa chọn'}</span></p>
+                    <div class="card-inner">
+                        <p class="event-type">${data.type || 'Sự kiện'}</p>
+                        <h1>${data.title || 'Tiêu đề thiệp'}</h1>
+                        <p>${data.msg || 'Thông điệp sẽ hiện ở đây'}</p>
+                        <div class="info-box">
+                            <p><strong>📅 Ngày:</strong> <span>${data.date || 'Chưa chọn'}</span></p>
+                            <p><strong>📍 Địa điểm:</strong> <span>${data.loc || 'Chưa chọn'}</span></p>
+                        </div>
                     </div>
                 </div>
             `;
+            // after inserting HTML, try to apply a background image for the selected theme
+            setCardBackground(data.theme);
         }
 
         function base64UrlDecode(value) {
@@ -53,6 +57,62 @@
             }
 
             renderCard(data);
+            centerPreviewCard();
+        }
+
+        // Map themes to local asset files (matches mapping in main.js)
+        function setCardBackground(theme) {
+            if (!theme) return;
+            const THEME_ASSETS = {
+                'theme-boho': 'assets/Boho.png',
+                'theme-classic': 'assets/Classic.jpg',
+                'theme-elegant': 'assets/Elegant.jpg',
+                'theme-floral': 'assets/Floral.avif',
+                'theme-modern': 'assets/Modern.jpg',
+                'theme-professional': 'assets/Professional.jpg',
+                'theme-gold': 'assets/Vàng sang trọng.jpg',
+                'theme-vang-sang-trong': 'assets/Vàng sang trọng.jpg'
+            };
+            const url = THEME_ASSETS[theme];
+            if (!url) return;
+            const el = document.getElementById('previewCard');
+            if (!el) return;
+            const img = new Image();
+            img.onload = () => {
+                const safeUrl = encodeURI(url) + '?_=' + Date.now();
+                el.style.backgroundImage = `url('${safeUrl}')`;
+                el.style.backgroundSize = 'cover';
+                el.style.backgroundPosition = 'center';
+                // quick luminance check to pick text color
+                try {
+                    const cw = Math.min(200, img.width);
+                    const ch = Math.min(200, img.height);
+                    const canvas = document.createElement('canvas');
+                    canvas.width = cw; canvas.height = ch;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, cw, ch);
+                    const data = ctx.getImageData(0, 0, cw, ch).data;
+                    let r=0,g=0,b=0,c=0;
+                    for (let i=0;i<data.length;i+=40){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; c++; }
+                    const lum = 0.2126*(r/c) + 0.7152*(g/c) + 0.0722*(b/c);
+                    if (lum < 120) el.style.color = '#fff'; else el.style.color = '';
+                } catch(e) {
+                    // ignore
+                }
+            };
+            img.onerror = () => {};
+            img.src = encodeURI(url) + '?_=' + Date.now();
+        }
+
+        // Ensure the preview card centers its content vertically like the editor
+        function centerPreviewCard() {
+            const el = document.getElementById('previewCard');
+            if (!el) return;
+            el.style.display = 'flex';
+            el.style.flexDirection = 'column';
+            el.style.justifyContent = 'center';
+            el.style.alignItems = 'center';
+            el.style.textAlign = 'center';
         }
 
         init();

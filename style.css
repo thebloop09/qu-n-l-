@@ -23,6 +23,30 @@ body {
     min-height: 100vh;
 }
 
+/* Background for auth (login/register) pages. Preserve aspect ratio — no stretching. */
+/* Auth page background: use existing asset and add overlay for readability */
+body.auth-page {
+    background-image: url('assets/background thiep moi (4).jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover; /* preserves aspect ratio without distortion */
+    background-attachment: fixed;
+}
+
+/* Overlay to improve contrast for the auth form */
+body.auth-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(0,0,0,0.18));
+    pointer-events: none;
+    backdrop-filter: blur(4px) saturate(1.02);
+    z-index: 0;
+}
+
+/* Ensure the auth container sits above the overlay */
+.auth-container { position: relative; z-index: 1; }
+
 button, .btn {
     padding: 10px 20px;
     border-radius: 999px;
@@ -146,6 +170,27 @@ main { max-width: 1200px; margin: 32px auto 60px; padding: 0 20px; }
     margin: 0 auto;
 }
 
+/* Translucent content panel that sits above background images
+   Applies to the whole text block (title, message, info-box) */
+#previewCard .card-inner {
+    background: rgba(255,255,255,0.9);
+    padding: 22px 26px;
+    border-radius: 16px;
+    display: block;
+    width: calc(100% - 24px);
+    margin: 8px auto 0 auto;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+}
+
+/* Reduce contrast on dark themes */
+#previewCard.theme-vibrant .card-inner,
+#previewCard.theme-professional .card-inner,
+#previewCard.theme-modern .card-inner,
+#previewCard.theme-pro .card-inner {
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+}
+
 .theme-elegant {
     background: #fffcf0 !important;
     border: 2px solid #d4af37;
@@ -157,30 +202,147 @@ main { max-width: 1200px; margin: 32px auto 60px; padding: 0 20px; }
 .theme-elegant .info-box { margin-top: auto; padding-top: 20px; border-top: 1px solid #d4af37; text-align: center; }
 .theme-elegant .info-box p { font-size: 14px; margin: 8px 0; color: #854d0e; }
 
+/* Minimal, Modern, Floral templates */
+.theme-minimal {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1px solid #eef2f7;
+    padding: 48px;
+    border-radius: 18px;
+    text-align: center;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+.theme-minimal h1 { font-size: 28px; font-weight: 700; margin: 12px 0; }
+.theme-minimal .event-type { color: #64748b; letter-spacing: 2px; font-size: 12px; margin-bottom: 8px; }
+.theme-minimal .info-box { margin-top: 20px; border-top: none; color: var(--text-sub); }
+
+.theme-modern {
+    background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+    color: #0b1220;
+    padding: 44px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    border: none;
+}
+.theme-modern h1 { font-size: 34px; font-weight: 800; margin: 8px 0 14px 28px; }
+.theme-modern .event-type { margin-left: 28px; font-weight: 700; font-size: 12px; color: #6b7280; }
+.theme-modern .info-box { margin-top: auto; padding-top: 18px; margin-left: 28px; color: #374151; }
+
+.theme-floral {
+    background: radial-gradient(circle at 10% 10%, rgba(255,240,230,0.8), transparent 12%), radial-gradient(circle at 90% 90%, rgba(240,250,255,0.8), transparent 12%), #fffaf8;
+    color: #2b2b2b;
+    padding: 48px;
+    border-radius: 22px;
+    border: 1px solid rgba(212,175,55,0.08);
+    box-shadow: 0 18px 40px -18px rgba(0,0,0,0.18);
+    font-family: 'Playfair Display', serif;
+}
+.theme-floral {
+    /* increase bottom padding so text doesn't overlap floral decoration */
+    padding-bottom: 80px;
+}
+
+#previewCard.theme-floral .info-box {
+    margin-top: 6px !important;
+    padding-top: 8px !important;
+}
+.theme-floral h1 { font-size: 36px; color: #6b3f1f; margin: 10px 0; }
+.theme-floral .event-type { color: #9b6b3a; font-size: 12px; letter-spacing: 3px; margin-bottom: 12px; }
+.theme-floral .info-box { margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(155,107,58,0.12); color: #6b3f1f; }
+
 .theme-vibrant {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
     color: white !important;
     justify-content: space-between;
 }
+
+/* Additional new templates: Classic, Boho, Gold */
+.theme-classic {
+    background: linear-gradient(180deg, #fffefa 0%, #fff6f0 100%);
+    color: #38220f;
+    padding: 48px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.04);
+    font-family: 'Playfair Display', serif;
+}
+.theme-classic h1 { font-size: 34px; color: #38220f; }
+.theme-classic .info-box { margin-top: auto; padding-top: 18px; color: #4b2f1a; }
+
+.theme-boho {
+    background: linear-gradient(135deg, #fffaf6 0%, #fff7fb 100%);
+    color: #2b2b2b;
+    padding: 44px;
+    border-radius: 22px;
+    border: none;
+    box-shadow: 0 16px 40px -18px rgba(0,0,0,0.12);
+    font-family: 'Georgia', serif;
+}
+.theme-boho h1 { font-size: 30px; font-weight: 700; color: #5a3b2e; }
+.theme-boho .event-type { color: #9a6b4a; letter-spacing: 2px; }
+.theme-boho .info-box { margin-top: auto; padding-top: 16px; color: #6b4a3a; }
+
+.theme-gold {
+    background: linear-gradient(180deg, #fffdf6 0%, #fff9f0 100%);
+    color: #2b2b2b;
+    padding: 48px;
+    border-radius: 20px;
+    border: 1px solid rgba(212,175,55,0.12);
+    box-shadow: 0 22px 50px -20px rgba(0,0,0,0.22);
+    font-family: 'Playfair Display', serif;
+}
+.theme-gold h1 { font-size: 36px; color: #5a3f1f; }
+.theme-gold .event-type { color: #a67c2a; letter-spacing: 3px; }
+.theme-gold .info-box { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(166,124,42,0.08); color: #5a3f1f; }
+
+/* Use uploaded images in assets/ for specific themes (if present) */
+.theme-boho { background-image: url('assets/Boho.png'); background-size: cover; background-position: center; }
+.theme-classic { background-image: url('assets/Classic.jpg'); background-size: cover; background-position: center; }
+.theme-elegant { background-image: url('assets/Elegant.jpg'); background-size: cover; background-position: center; }
+.theme-floral { background-image: url('assets/Floral.avif'); background-size: cover; background-position: center; }
+.theme-modern { background-image: url('assets/Modern.jpg'); background-size: cover; background-position: center; }
+.theme-pro { /* removed - use .theme-professional instead */ }
+.theme-gold { background-image: url('assets/Vàng sang trọng.jpg'); background-size: cover; background-position: center; }
+
+/* Ensure text remains readable atop images */
+.theme-boho, .theme-classic, .theme-elegant, .theme-floral, .theme-modern, .theme-gold {
+    color: inherit; /* color may be adjusted dynamically by JS */
+}
+
+/* Additional uploaded asset templates */
+.theme-professional { background-image: url('assets/Professional.jpg'); background-size: cover; background-position: center; }
+.theme-vang-sang-trong { background-image: url('assets/Vàng sang trọng.jpg'); background-size: cover; background-position: center; }
 .theme-vibrant h1 { font-size: 38px; font-weight: 800; margin: 16px 0; }
 .theme-vibrant .event-type { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9; margin-bottom: 12px; }
 .theme-vibrant .info-box { margin-top: auto; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 12px; }
 .theme-vibrant .info-box p { font-size: 14px; margin: 8px 0; }
 
-.theme-pro {
-    background: #1e293b !important;
-    color: #f8fafc !important;
-    text-align: left !important;
-    border-top: 8px solid #4f46e5;
-    justify-content: space-between;
-}
-.theme-pro h1 { font-size: 28px; margin: 16px 0; }
-.theme-pro .event-type { background: #4f46e5; width: fit-content; padding: 6px 12px; border-radius: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-.theme-pro .info-box { margin-top: auto; padding-top: 16px; border-top: 1px solid #475569; text-align: left; }
-.theme-pro .info-box p { font-size: 13px; margin: 8px 0; color: #cbd5e1; }
+.theme-pro { /* removed duplicate professional style; use .theme-professional */ }
 
 .event-type { display: block; }
 .info-box p { margin: 0; }
+
+/* Ensure the info-box stands out on all templates */
+#previewCard .info-box {
+    margin-top: 8px !important;
+    padding: 10px 14px !important;
+    background: rgba(255,255,255,0.82) !important;
+    color: inherit !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12) !important;
+    backdrop-filter: blur(6px) saturate(1.05) !important;
+    display: inline-block !important;
+    text-align: left !important;
+}
+
+/* Dark/colored background variants — use darker translucent backdrop and white text */
+#previewCard.theme-vibrant .info-box,
+#previewCard.theme-professional .info-box,
+#previewCard.theme-modern .info-box,
+#previewCard.theme-pro .info-box {
+    background: rgba(0,0,0,0.36) !important;
+    color: #fff !important;
+}
 
 .page-shell { max-width: 1160px; margin: 42px auto 60px; padding: 0 20px; }
 .detail-layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; justify-items: center; }
