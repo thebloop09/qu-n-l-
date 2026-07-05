@@ -1,522 +1,467 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@500;700&display=swap');
 
+/* ==========================================================================
+   1. CẤU HÌNH BIẾN TOÀN CỤC (VARIABLES) & RESET
+   ========================================================================== */
 :root {
     --primary: #4f46e5;
     --primary-hover: #4338ca;
     --accent: #7c3aed;
     --bg: #f8fafc;
     --card: #ffffff;
-    --text-main: #1e293b;
+    --text-main: #0f172a;
     --text-sub: #64748b;
     --border: #e2e8f0;
     --success: #10b981;
-    --shadow: 0 20px 45px -20px rgb(15 23 42 / 0.25);
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+    --radius: 12px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     color: var(--text-main);
-    line-height: 1.5;
+    line-height: 1.6;
     min-height: 100vh;
 }
 
-/* Background for auth (login/register) pages. Preserve aspect ratio — no stretching. */
-/* Auth page background: use existing asset and add overlay for readability */
+/* ==========================================================================
+   2. TRANG ĐĂNG NHẬP / ĐĂNG KÝ (AUTH PAGE)
+   ========================================================================== */
 body.auth-page {
-    background-image: url('assets/background thiep moi (4).jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover; /* preserves aspect ratio without distortion */
-    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%), #f8fafc;
+    padding: 20px;
 }
 
-/* Overlay to improve contrast for the auth form */
-body.auth-page::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.28), rgba(0,0,0,0.18));
-    pointer-events: none;
-    backdrop-filter: blur(4px) saturate(1.02);
-    z-index: 0;
+.auth-container {
+    background: var(--card);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg), 0 20px 25px -5px rgba(0, 0, 0, 0.02);
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
-/* Ensure the auth container sits above the overlay */
-.auth-container { position: relative; z-index: 1; }
+.auth-container h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-button, .btn {
-    padding: 10px 20px;
-    border-radius: 999px;
-    border: none;
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
     font-weight: 600;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    color: var(--text-main);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+button {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-size: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
 
-.btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); color: white; }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -12px var(--primary); }
-
-.btn-outline { background: white; border: 1px solid var(--border); color: var(--text-main); }
-.btn-outline:hover { background: #f8fafc; }
-
-.btn-danger { background: #fee2e2; color: #ef4444; }
-.btn-danger:hover { background: #fecaca; }
-
-.btn-success { background: linear-gradient(135deg, var(--success) 0%, #059669 100%); color: white; }
-.btn-success:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -12px var(--success); }
-
-.auth-container {
-    max-width: 420px;
-    margin: 72px auto;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(12px);
-    padding: 36px;
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(255,255,255,0.7);
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
 }
 
-.auth-container h2 { margin-bottom: 24px; text-align: center; font-weight: 700; font-size: 26px; }
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
 
-.btn-group { display: flex; gap: 12px; margin-top: 24px; }
-.btn-group button { flex: 1; padding: 12px 20px; }
-
-input, select {
-    width: 100%;
-    padding: 12px 16px;
-    margin-bottom: 16px;
+.btn-secondary {
+    background-color: #f1f5f9;
+    color: #475569;
     border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 15px;
-    background: #fff;
 }
 
+.btn-secondary:hover {
+    background-color: #e2e8f0;
+    color: var(--text-main);
+}
+
+.btn-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-group button {
+    flex: 1;
+}
+
+/* ==========================================================================
+   3. BẢNG ĐIỀU KHIỂN (DASHBOARD)
+   ========================================================================== */
 header {
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
     padding: 16px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
-main { max-width: 1200px; margin: 32px auto 60px; padding: 0 20px; }
-.header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-.header-flex h1 { font-size: 24px; }
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.header-flex h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
 
 .grid-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 24px;
 }
 
 .card {
-    background: white;
+    background: var(--card);
+    border-radius: var(--radius);
     padding: 24px;
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card h2 { font-size: 18px; margin-bottom: 4px; }
-.card p { color: var(--text-sub); font-size: 14px; }
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(79, 70, 229, 0.3);
+}
 
+.card h2 {
+    font-size: 20px;
+    margin: 8px 0 12px 0;
+    font-weight: 600;
+}
+
+.card p {
+    color: var(--text-sub);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   4. BỘ THIẾT KẾ THIỆP (EDITOR LAYOUT)
+   ========================================================================== */
 .editor-layout {
     display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 32px;
+    grid-template-columns: 400px 1fr;
+    min-height: 100vh;
 }
 
 .form-side {
-    background: white;
-    padding: 24px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    max-height: 85vh;
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    padding: 32px;
     overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.form-side h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
 }
 
 .preview-side {
-    background: linear-gradient(135deg, rgba(79,70,229,0.12) 0%, rgba(124,58,237,0.16) 100%);
-    border-radius: 20px;
+    padding: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    background: #e2e8f0;
+    overflow-y: auto;
 }
 
+/* Khung hiển thị thiệp mời */
 #previewCard {
     width: 100%;
-    max-width: 400px;
-    min-height: 550px;
-    background: white;
-    padding: 40px;
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    max-width: 360px; 
+    min-height: 580px; 
+    border-radius: 20px;
+    padding: 35px 30px; /* Tăng khoảng cách lề ngoài để dồn khối chữ gọn vào giữa */
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.2);
     display: flex;
     flex-direction: column;
-    text-align: center;
-    border-radius: 24px;
-    margin: 0 auto;
-}
-
-/* Translucent content panel that sits above background images
-   Applies to the whole text block (title, message, info-box) */
-#previewCard .card-inner {
-    background: rgba(255,255,255,0.9);
-    padding: 22px 26px;
-    border-radius: 16px;
-    display: block;
-    width: calc(100% - 24px);
-    margin: 8px auto 0 auto;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.08);
-}
-
-/* Reduce contrast on dark themes */
-#previewCard.theme-vibrant .card-inner,
-#previewCard.theme-professional .card-inner,
-#previewCard.theme-modern .card-inner,
-#previewCard.theme-pro .card-inner {
-    background: rgba(0,0,0,0.45);
-    color: #fff;
-}
-
-.theme-elegant {
-    background: #fffcf0 !important;
-    border: 2px solid #d4af37;
-    font-family: 'Playfair Display', serif;
-    justify-content: space-between;
-}
-.theme-elegant h1 { color: #854d0e; font-size: 32px; margin: 16px 0; }
-.theme-elegant .event-type { color: #854d0e; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
-.theme-elegant .info-box { margin-top: auto; padding-top: 20px; border-top: 1px solid #d4af37; text-align: center; }
-.theme-elegant .info-box p { font-size: 14px; margin: 8px 0; color: #854d0e; }
-
-/* Minimal, Modern, Floral templates */
-.theme-minimal {
-    background: #ffffff;
-    color: #0f172a;
-    border: 1px solid #eef2f7;
-    padding: 48px;
-    border-radius: 18px;
-    text-align: center;
-    font-family: 'Inter', system-ui, sans-serif;
-}
-.theme-minimal h1 { font-size: 28px; font-weight: 700; margin: 12px 0; }
-.theme-minimal .event-type { color: #64748b; letter-spacing: 2px; font-size: 12px; margin-bottom: 8px; }
-.theme-minimal .info-box { margin-top: 20px; border-top: none; color: var(--text-sub); }
-
-.theme-modern {
-    background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
-    color: #0b1220;
-    padding: 44px;
-    border-radius: 20px;
+    justify-content: center;
     position: relative;
     overflow: hidden;
-    border: none;
-}
-.theme-modern h1 { font-size: 34px; font-weight: 800; margin: 8px 0 14px 28px; }
-.theme-modern .event-type { margin-left: 28px; font-weight: 700; font-size: 12px; color: #6b7280; }
-.theme-modern .info-box { margin-top: auto; padding-top: 18px; margin-left: 28px; color: #374151; }
-
-.theme-floral {
-    background: radial-gradient(circle at 10% 10%, rgba(255,240,230,0.8), transparent 12%), radial-gradient(circle at 90% 90%, rgba(240,250,255,0.8), transparent 12%), #fffaf8;
-    color: #2b2b2b;
-    padding: 48px;
-    border-radius: 22px;
-    border: 1px solid rgba(212,175,55,0.08);
-    box-shadow: 0 18px 40px -18px rgba(0,0,0,0.18);
-    font-family: 'Playfair Display', serif;
-}
-.theme-floral {
-    /* increase bottom padding so text doesn't overlap floral decoration */
-    padding-bottom: 80px;
+    transition: all 0.4s ease;
+    
+    background-position: center !important;
+    background-size: 100% 100% !important; 
+    background-repeat: no-repeat !important;
 }
 
-#previewCard.theme-floral .info-box {
-    margin-top: 6px !important;
-    padding-top: 8px !important;
+/* THU NHỎ CỤC TRẮNG MỜ (FROSTED GLASS EFFECT BOX) */
+#previewCard .card-inner {
+    background: rgba(255, 255, 255, 0.75) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    padding: 22px 18px; /* Giảm padding để cục mờ nhỏ gọn lại */
+    border-radius: 12px; /* Bo góc gọn hơn */
+    height: auto; /* Cho phép co giãn tự nhiên theo chữ thay vì chiếm 100% */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: inherit;
+    box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
 }
-.theme-floral h1 { font-size: 36px; color: #6b3f1f; margin: 10px 0; }
-.theme-floral .event-type { color: #9b6b3a; font-size: 12px; letter-spacing: 3px; margin-bottom: 12px; }
-.theme-floral .info-box { margin-top: auto; padding-top: 20px; border-top: 1px dashed rgba(155,107,58,0.12); color: #6b3f1f; }
 
+/* ĐÃ HẠ SIZE CHỮ XUỐNG CHO CÂN ĐỐI */
+.event-type {
+    font-size: 11px; /* Giảm từ 12px */
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+#viewTitle {
+    font-size: 24px; /* Giảm từ 28px để tên không bị quá to */
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+#viewMessage {
+    font-size: 13px; /* Giảm từ 14px */
+    margin-bottom: 14px;
+}
+
+/* Hộp thông tin chi tiết ngày giờ, địa điểm bên trong */
+.info-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+    padding: 10px 12px; /* Thu nhỏ hộp thông tin */
+    margin-top: 10px;
+    font-size: 12.5px; /* Giảm size chữ thông tin */
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    width: 100%;
+    text-align: left;
+}
+
+.info-box p {
+    margin-bottom: 4px;
+}
+.info-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   5. CÁC THEMES PHỐI HỢP MÀU CHỮ
+   ========================================================================== */
+
+/* Theme 1: Elegant (Thanh lịch) */
+.theme-elegant {
+    background-image: url('assets/Elegant.jpg') !important;
+    color: #3d2f2e !important;
+}
+.theme-elegant .event-type { color: #b28250; }
+.theme-elegant h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: #1f1413; }
+.theme-elegant .card-inner { border: 1px solid rgba(178, 130, 80, 0.25) !important; }
+
+/* Theme 2: Modern (Hiện đại) */
+.theme-modern {
+    background-image: url('assets/Modern.jpg') !important;
+    color: #0f172a !important;
+}
+.theme-modern .event-type { color: #0284c7; }
+.theme-modern h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #0f172a; }
+
+/* Theme 3: Vibrant (Rực rỡ) */
 .theme-vibrant {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important;
-    color: white !important;
-    justify-content: space-between;
+    background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%) !important;
+    color: #4c0519 !important;
 }
+.theme-vibrant .event-type { color: #be185d; }
+.theme-vibrant h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #701a75; }
 
-/* Additional new templates: Classic, Boho, Gold */
+/* Theme 4: Floral (Mộng mơ) */
+.theme-floral {
+    background-image: url('assets/Floral.avif') !important;
+    color: #5c3d46 !important;
+}
+.theme-floral .event-type { color: #db2777; }
+.theme-floral h1 { font-family: 'Dancing Script', cursive; font-size: 32px !important; color: #9d174d; } /* Tinh chỉnh font đặc biệt */
+.theme-floral .card-inner { border: 1px dashed rgba(219, 39, 119, 0.25) !important; }
+
+/* Theme 5: Classic (Cổ điển) */
 .theme-classic {
-    background: linear-gradient(180deg, #fffefa 0%, #fff6f0 100%);
-    color: #38220f;
-    padding: 48px;
-    border-radius: 20px;
-    border: 1px solid rgba(0,0,0,0.04);
-    font-family: 'Playfair Display', serif;
+    background-image: url('assets/Classic.jpg') !important;
+    color: #1e293b !important;
 }
-.theme-classic h1 { font-size: 34px; color: #38220f; }
-.theme-classic .info-box { margin-top: auto; padding-top: 18px; color: #4b2f1a; }
+.theme-classic .event-type { color: #b45309; }
+.theme-classic h1 { font-family: 'Playfair Display', serif; font-style: italic; color: #0f172a; }
 
+/* Theme 6: Boho (Phóng khoáng) */
 .theme-boho {
-    background: linear-gradient(135deg, #fffaf6 0%, #fff7fb 100%);
-    color: #2b2b2b;
-    padding: 44px;
-    border-radius: 22px;
-    border: none;
-    box-shadow: 0 16px 40px -18px rgba(0,0,0,0.12);
-    font-family: 'Georgia', serif;
+    background-image: url('assets/Boho.png') !important;
+    color: #543f32 !important;
 }
-.theme-boho h1 { font-size: 30px; font-weight: 700; color: #5a3b2e; }
-.theme-boho .event-type { color: #9a6b4a; letter-spacing: 2px; }
-.theme-boho .info-box { margin-top: auto; padding-top: 16px; color: #6b4a3a; }
+.theme-boho .event-type { color: #b45309; }
+.theme-boho h1 { font-family: 'Playfair Display', serif; font-weight: 600; color: #453227; }
 
+/* Theme 7: Gold (Vàng sang trọng) */
 .theme-gold {
-    background: linear-gradient(180deg, #fffdf6 0%, #fff9f0 100%);
-    color: #2b2b2b;
-    padding: 48px;
-    border-radius: 20px;
-    border: 1px solid rgba(212,175,55,0.12);
-    box-shadow: 0 22px 50px -20px rgba(0,0,0,0.22);
-    font-family: 'Playfair Display', serif;
+    background-image: url('assets/Vàng sang trọng.jpg') !important;
+    color: #27272a !important;
 }
-.theme-gold h1 { font-size: 36px; color: #5a3f1f; }
-.theme-gold .event-type { color: #a67c2a; letter-spacing: 3px; }
-.theme-gold .info-box { margin-top: auto; padding-top: 18px; border-top: 1px solid rgba(166,124,42,0.08); color: #5a3f1f; }
+.theme-gold .event-type { color: #b45309; }
+.theme-gold h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: #78350f; }
 
-/* Use uploaded images in assets/ for specific themes (if present) */
-.theme-boho { background-image: url('assets/Boho.png'); background-size: cover; background-position: center; }
-.theme-classic { background-image: url('assets/Classic.jpg'); background-size: cover; background-position: center; }
-.theme-elegant { background-image: url('assets/Elegant.jpg'); background-size: cover; background-position: center; }
-.theme-floral { background-image: url('assets/Floral.avif'); background-size: cover; background-position: center; }
-.theme-modern { background-image: url('assets/Modern.jpg'); background-size: cover; background-position: center; }
-.theme-pro { /* removed - use .theme-professional instead */ }
-.theme-gold { background-image: url('assets/Vàng sang trọng.jpg'); background-size: cover; background-position: center; }
-
-/* Ensure text remains readable atop images */
-.theme-boho, .theme-classic, .theme-elegant, .theme-floral, .theme-modern, .theme-gold {
-    color: inherit; /* color may be adjusted dynamically by JS */
+/* Theme 8: Professional (Tối giản / Công việc) */
+.theme-professional {
+    background-image: url('assets/Professional.jpg') !important;
+    color: #1e293b !important;
 }
-
-/* Additional uploaded asset templates */
-.theme-professional { background-image: url('assets/Professional.jpg'); background-size: cover; background-position: center; }
-.theme-vang-sang-trong { background-image: url('assets/Vàng sang trọng.jpg'); background-size: cover; background-position: center; }
-.theme-vibrant h1 { font-size: 38px; font-weight: 800; margin: 16px 0; }
-.theme-vibrant .event-type { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9; margin-bottom: 12px; }
-.theme-vibrant .info-box { margin-top: auto; padding: 16px; background: rgba(255,255,255,0.15); border-radius: 12px; }
-.theme-vibrant .info-box p { font-size: 14px; margin: 8px 0; }
-
-.theme-pro { /* removed duplicate professional style; use .theme-professional */ }
-
-.event-type { display: block; }
-.info-box p { margin: 0; }
-
-/* Ensure the info-box stands out on all templates */
-#previewCard .info-box {
-    margin-top: 8px !important;
-    padding: 10px 14px !important;
-    background: rgba(255,255,255,0.82) !important;
-    color: inherit !important;
-    border-radius: 10px !important;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.12) !important;
-    backdrop-filter: blur(6px) saturate(1.05) !important;
-    display: inline-block !important;
-    text-align: left !important;
-}
-
-/* Dark/colored background variants — use darker translucent backdrop and white text */
-#previewCard.theme-vibrant .info-box,
-#previewCard.theme-professional .info-box,
-#previewCard.theme-modern .info-box,
-#previewCard.theme-pro .info-box {
-    background: rgba(0,0,0,0.36) !important;
-    color: #fff !important;
-}
-
-.page-shell { max-width: 1160px; margin: 42px auto 60px; padding: 0 20px; }
-.detail-layout { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; justify-items: center; }
-.preview-panel { background: rgba(255,255,255,0.95); border-radius: 24px; box-shadow: var(--shadow); border: 1px solid rgba(226,232,240,0.8); padding: 24px; width: 100%; max-width: 600px; display: flex; justify-content: center; }
-.preview-frame { margin: 0; padding: 0; border-radius: 20px; background: transparent; width: 100%; display: flex; justify-content: center; }
-.page-badge { display: inline-block; padding: 7px 12px; border-radius: 999px; background: rgba(79,70,229,0.1); color: var(--primary); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 12px; }
-.detail-text { color: var(--text-sub); margin-top: 8px; }
-.rsvp-panel { padding: 24px; }
-.status-pill { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: rgba(16,185,129,0.12); color: #047857; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
-.rsvp-panel h3 { font-size: 20px; margin-bottom: 8px; }
-.muted { color: var(--text-sub); margin-bottom: 16px; font-size: 14px; }
-.rsvp-actions { display: flex; gap: 10px; margin-bottom: 18px; }
-.rsvp-actions button { flex: 1; }
-.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
-.stat-pill { background: #f8fafc; border: 1px solid var(--border); border-radius: 14px; padding: 12px; text-align: center; }
-.stat-pill strong { display: block; font-size: 22px; color: var(--primary); }
-.stat-pill span { color: var(--text-sub); font-size: 13px; }
-.total-pill { margin-bottom: 12px; }
-.message-box { background: rgba(79,70,229,0.06); border: 1px solid rgba(79,70,229,0.12); border-radius: 12px; padding: 12px; color: var(--text-main); font-size: 14px; }
-
-@media (max-width: 900px) {
-    .editor-layout { grid-template-columns: 1fr; }
-    .detail-layout { grid-template-columns: 1fr; justify-items: center; }
-    .rsvp-panel { width: 100%; max-width: 360px; }
-}
-
-@media (max-width: 640px) {
-    header { padding: 16px 20px; }
-    .btn-group, .rsvp-actions { flex-direction: column; }
-    .stat-grid { grid-template-columns: 1fr; }
-    .detail-layout { grid-template-columns: 1fr; }
-    .preview-panel { padding: 16px; }
-}
+.theme-professional .event-type { color: #1d4ed8; }
+.theme-professional h1 { font-family: 'Inter', sans-serif; font-weight: 700; color: #0f172a; }
 
 
-/* ================= Responsive ================= */
-
-/* Tablet */
-@media (max-width: 992px) {
-
-    .editor-layout{
+/* ==========================================================================
+   6. RESPONSIVE (TƯƠNG THÍCH THIẾT BỊ)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .editor-layout {
         grid-template-columns: 1fr;
-        padding:20px;
     }
-
-    .form-side{
-        max-height:none;
-        overflow:visible;
-        order:2;
+    
+    .form-side {
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
     }
-
-    .preview-side{
-        order:1;
-        padding:20px;
-    }
-
-    #previewCard{
-        max-width:420px;
-        width:100%;
-        min-height:520px;
-    }
-
-    header{
-        padding:15px 20px;
-    }
-
-    .header-flex{
-        flex-direction:column;
-        gap:15px;
-        align-items:flex-start;
+    
+    .preview-side {
+        padding: 30px 15px;
     }
 }
 
-
-/* Mobile */
-@media (max-width:768px){
-
-    body{
-        font-size:15px;
+@media (max-width: 768px) {
+    header {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
     }
 
-    header{
-        flex-direction:column;
-        gap:12px;
-        text-align:center;
+    .header-flex {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
     }
 
-    main{
-        margin:20px auto;
-        padding:15px;
+    .header-flex button {
+        width: 100%;
     }
 
-    .grid-list{
-        grid-template-columns:1fr;
+    main {
+        margin: 20px auto;
     }
 
-    .card{
-        padding:18px;
+    .grid-list {
+        grid-template-columns: 1fr;
     }
 
-    .auth-container{
-        width:92%;
-        margin:30px auto;
-        padding:24px;
+    .auth-container {
+        padding: 30px 20px;
+    }
+    
+    #previewCard {
+        max-width: 320px;
+        min-height: 520px;
+        padding: 25px 20px;
     }
 
-    .btn-group{
-        flex-direction:column;
+    #previewCard h1 {
+        font-size: 22px !important;
     }
-
-    button{
-        width:100%;
-    }
-
-    .preview-side{
-        padding:10px;
-    }
-
-    #previewCard{
-        width:100%;
-        min-height:500px;
-        padding:25px;
-    }
-
-    #previewCard h1{
-        font-size:28px !important;
-    }
-
-    #previewCard .card-inner{
-        width:100%;
-        padding:18px;
-    }
-
-    .info-box{
-        width:100%;
-    }
-
-}
-
-
-/* Điện thoại nhỏ */
-@media (max-width:480px){
-
-    .auth-container{
-        padding:20px;
-    }
-
-    input,
-    select{
-        font-size:16px;
-    }
-
-    .header-flex h1{
-        font-size:22px;
-    }
-
-    #previewCard{
-        min-height:430px;
-        padding:20px;
-        border-radius:18px;
-    }
-
-    #previewCard h1{
-        font-size:24px !important;
-    }
-
-    .theme-modern h1,
-    .theme-classic h1,
-    .theme-elegant h1,
-    .theme-gold h1,
-    .theme-floral h1,
-    .theme-boho h1,
-    .theme-vibrant h1{
-        font-size:24px !important;
-    }
-
 }
