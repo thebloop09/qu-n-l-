@@ -4,13 +4,13 @@
    1. CẤU HÌNH BIẾN TOÀN CỤC (VARIABLES) & RESET
    ========================================================================== */
 :root {
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --accent: #7c3aed;
+    --primary: #e07a5f; 
+    --primary-hover: #cc654a;
+    --accent: #bc4b51;
     --bg: #f8fafc;
     --card: #ffffff;
-    --text-main: #0f172a;
-    --text-sub: #64748b;
+    --text-main: #2b2d42;
+    --text-sub: #6c757d;
     --border: #e2e8f0;
     --success: #10b981;
     --danger: #ef4444;
@@ -42,28 +42,44 @@ body.auth-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%), #f8fafc;
     padding: 20px;
+    background-image: url('assets/background\ thiep\ moi\ \(4\).jpg') !important;
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    position: relative;
+}
+
+body.auth-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(2px);
+    z-index: 1;
 }
 
 .auth-container {
-    background: var(--card);
-    padding: 40px;
+    position: relative;
+    z-index: 2; 
+    background: rgba(255, 255, 255, 0.82) !important;
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px) !important;
+    padding: 40px 32px;
     border-radius: 20px;
-    box-shadow: var(--shadow-lg), 0 20px 25px -5px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
     width: 100%;
-    max-width: 420px;
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    max-width: 400px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
 }
 
 .auth-container h2 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 30px;
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    margin-bottom: 28px;
+    color: #4a2825;
+    letter-spacing: -0.5px;
 }
 
 .input-group {
@@ -72,41 +88,38 @@ body.auth-page {
 
 .input-group label {
     display: block;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 600;
     margin-bottom: 6px;
-    color: #475569;
+    color: #495057;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="date"],
-select {
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
     width: 100%;
     padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
     font-family: inherit;
     font-size: 15px;
     transition: all 0.2s ease;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9);
     color: var(--text-main);
 }
 
 input:focus, select:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    box-shadow: 0 0 0 3px rgba(224, 122, 95, 0.2);
+    background-color: #fff;
 }
 
 button {
     font-family: inherit;
-    font-size: 15px;
+    font-size: 14.5px;
     font-weight: 600;
-    padding: 12px 20px;
+    padding: 11px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
     display: inline-flex;
@@ -115,46 +128,14 @@ button {
     gap: 8px;
 }
 
-.btn-primary {
-    background-color: var(--primary);
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-}
-
-.btn-secondary {
-    background-color: #f1f5f9;
-    color: #475569;
-    border: 1px solid var(--border);
-}
-
-.btn-secondary:hover {
-    background-color: #e2e8f0;
-    color: var(--text-main);
-}
-
-.btn-danger {
-    background-color: rgba(239, 68, 68, 0.1);
-    color: var(--danger);
-}
-
-.btn-danger:hover {
-    background-color: var(--danger);
-    color: white;
-}
-
-.btn-group {
-    display: flex;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-.btn-group button {
-    flex: 1;
-}
+.btn-primary { background-color: var(--primary); color: white; }
+.btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+.btn-secondary { background-color: rgba(0, 0, 0, 0.05); color: #495057; border: 1px solid rgba(0, 0, 0, 0.05); }
+.btn-secondary:hover { background-color: rgba(0, 0, 0, 0.1); color: var(--text-main); }
+.btn-danger { background-color: rgba(239, 68, 68, 0.1); color: var(--danger); }
+.btn-danger:hover { background-color: var(--danger); color: white; }
+.btn-group { display: flex; gap: 12px; margin-top: 10px; }
+.btn-group button { flex: 1; }
 
 /* ==========================================================================
    3. BẢNG ĐIỀU KHIỂN (DASHBOARD)
@@ -173,29 +154,10 @@ header {
     z-index: 50;
 }
 
-main {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 24px;
-}
-
-.header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-}
-
-.header-flex h1 {
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.grid-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
-}
+main { max-width: 1200px; margin: 40px auto; padding: 0 24px; }
+.header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+.header-flex h1 { font-size: 28px; font-weight: 700; }
+.grid-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
 
 .card {
     background: var(--card);
@@ -205,27 +167,12 @@ main {
     border: 1px solid var(--border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: rgba(79, 70, 229, 0.3);
-}
-
-.card h2 {
-    font-size: 20px;
-    margin: 8px 0 12px 0;
-    font-weight: 600;
-}
-
-.card p {
-    color: var(--text-sub);
-    font-size: 14px;
-    margin-bottom: 20px;
-}
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(224, 122, 95, 0.3); }
+.card h2 { font-size: 20px; margin: 8px 0 12px 0; font-weight: 600; }
+.card p { color: var(--text-sub); font-size: 14px; margin-bottom: 20px; }
 
 /* ==========================================================================
-   4. BỘ THIẾT KẾ THIỆP (EDITOR LAYOUT)
+   4. BỘ THIẾT KẾ THIỆP & KHUNG HIỂN THỊ CHUẨN (KHÔNG BỊ LỆCH)
    ========================================================================== */
 .editor-layout {
     display: grid;
@@ -243,225 +190,135 @@ main {
     top: 0;
 }
 
-.form-side h2 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 24px;
-}
+.form-side h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
 
-.preview-side {
+/* Vùng chứa preview của cả trang tạo thiệp lẫn trang xem đơn lẻ */
+.preview-side, .share-page-container {
     padding: 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Đảm bảo luôn căn giữa ngang */
+    align-content: center;
     background: #e2e8f0;
     overflow-y: auto;
+    min-height: 100vh;
 }
 
-/* Khung hiển thị thiệp mời */
+/* SỬA LỖI LỆCH: Khóa cứng thuộc tính hình dáng của thiệp mời */
 #previewCard {
-    width: 100%;
-    max-width: 360px; 
-    min-height: 580px; 
+    width: 360px !important;       /* Cố định chiều rộng, không cho méo */
+    height: 580px !important;      /* Cố định chiều cao, không cho dãn bậy */
+    min-height: 580px !important;
     border-radius: 20px;
-    padding: 35px 30px; /* Tăng khoảng cách lề ngoài để dồn khối chữ gọn vào giữa */
+    padding: 35px 30px;
     box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important; /* Luôn căn khối chữ mờ vào giữa ảnh */
     position: relative;
     overflow: hidden;
-    transition: all 0.4s ease;
+    margin: auto !important;       /* Tự động căn lề đều các phía */
     
-    background-position: center !important;
+    background-position: center center !important;
     background-size: 100% 100% !important; 
     background-repeat: no-repeat !important;
 }
 
-/* THU NHỎ CỤC TRẮNG MỜ (FROSTED GLASS EFFECT BOX) */
+/* CỤC NỀN TRẮNG MỜ */
 #previewCard .card-inner {
     background: rgba(255, 255, 255, 0.75) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    
     border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    padding: 22px 18px; /* Giảm padding để cục mờ nhỏ gọn lại */
-    border-radius: 12px; /* Bo góc gọn hơn */
-    height: auto; /* Cho phép co giãn tự nhiên theo chữ thay vì chiếm 100% */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: inherit;
+    padding: 22px 18px;
+    border-radius: 12px;
+    width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
     box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+    text-align: center; /* Đảm bảo chữ bên trong luôn căn giữa đều đẹp */
 }
 
-/* ĐÃ HẠ SIZE CHỮ XUỐNG CHO CÂN ĐỐI */
-.event-type {
-    font-size: 11px; /* Giảm từ 12px */
-    letter-spacing: 2px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
+.event-type { font-size: 11px; letter-spacing: 2px; font-weight: 700; margin-bottom: 10px; }
+#viewTitle { font-size: 24px; margin-bottom: 10px; line-height: 1.25; }
+#viewMessage { font-size: 13px; margin-bottom: 14px; }
 
-#viewTitle {
-    font-size: 24px; /* Giảm từ 28px để tên không bị quá to */
-    margin-bottom: 10px;
-    line-height: 1.25;
-}
-
-#viewMessage {
-    font-size: 13px; /* Giảm từ 14px */
-    margin-bottom: 14px;
-}
-
-/* Hộp thông tin chi tiết ngày giờ, địa điểm bên trong */
 .info-box {
     background: rgba(255, 255, 255, 0.85);
     border-radius: 8px;
-    padding: 10px 12px; /* Thu nhỏ hộp thông tin */
+    padding: 10px 12px;
     margin-top: 10px;
-    font-size: 12.5px; /* Giảm size chữ thông tin */
+    font-size: 12.5px;
     border: 1px solid rgba(0, 0, 0, 0.04);
     width: 100%;
     text-align: left;
 }
-
-.info-box p {
-    margin-bottom: 4px;
-}
-.info-box p:last-child {
-    margin-bottom: 0;
-}
+.info-box p { margin-bottom: 4px; }
+.info-box p:last-child { margin-bottom: 0; }
 
 /* ==========================================================================
-   5. CÁC THEMES PHỐI HỢP MÀU CHỮ
+   5. CÁC THEMES PHỐI HỢP MÀU CHỮ THIỆP MỜI
    ========================================================================== */
-
-/* Theme 1: Elegant (Thanh lịch) */
-.theme-elegant {
-    background-image: url('assets/Elegant.jpg') !important;
-    color: #3d2f2e !important;
-}
+.theme-elegant { background-image: url('assets/Elegant.jpg') !important; color: #3d2f2e !important; }
 .theme-elegant .event-type { color: #b28250; }
 .theme-elegant h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: #1f1413; }
 .theme-elegant .card-inner { border: 1px solid rgba(178, 130, 80, 0.25) !important; }
 
-/* Theme 2: Modern (Hiện đại) */
-.theme-modern {
-    background-image: url('assets/Modern.jpg') !important;
-    color: #0f172a !important;
-}
+.theme-modern { background-image: url('assets/Modern.jpg') !important; color: #0f172a !important; }
 .theme-modern .event-type { color: #0284c7; }
 .theme-modern h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #0f172a; }
 
-/* Theme 3: Vibrant (Rực rỡ) */
-.theme-vibrant {
-    background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%) !important;
-    color: #4c0519 !important;
-}
+.theme-vibrant { background: linear-gradient(135deg, #ff007f 0%, #7928ca 100%) !important; color: #4c0519 !important; }
 .theme-vibrant .event-type { color: #be185d; }
 .theme-vibrant h1 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #701a75; }
 
-/* Theme 4: Floral (Mộng mơ) */
-.theme-floral {
-    background-image: url('assets/Floral.avif') !important;
-    color: #5c3d46 !important;
-}
+.theme-floral { background-image: url('assets/Floral.avif') !important; color: #5c3d46 !important; }
 .theme-floral .event-type { color: #db2777; }
-.theme-floral h1 { font-family: 'Dancing Script', cursive; font-size: 32px !important; color: #9d174d; } /* Tinh chỉnh font đặc biệt */
+.theme-floral h1 { font-family: 'Dancing Script', cursive; font-size: 32px !important; color: #9d174d; }
 .theme-floral .card-inner { border: 1px dashed rgba(219, 39, 119, 0.25) !important; }
 
-/* Theme 5: Classic (Cổ điển) */
-.theme-classic {
-    background-image: url('assets/Classic.jpg') !important;
-    color: #1e293b !important;
-}
+.theme-classic { background-image: url('assets/Classic.jpg') !important; color: #1e293b !important; }
 .theme-classic .event-type { color: #b45309; }
 .theme-classic h1 { font-family: 'Playfair Display', serif; font-style: italic; color: #0f172a; }
 
-/* Theme 6: Boho (Phóng khoáng) */
-.theme-boho {
-    background-image: url('assets/Boho.png') !important;
-    color: #543f32 !important;
-}
+.theme-boho { background-image: url('assets/Boho.png') !important; color: #543f32 !important; }
 .theme-boho .event-type { color: #b45309; }
 .theme-boho h1 { font-family: 'Playfair Display', serif; font-weight: 600; color: #453227; }
 
-/* Theme 7: Gold (Vàng sang trọng) */
-.theme-gold {
-    background-image: url('assets/Vàng sang trọng.jpg') !important;
-    color: #27272a !important;
-}
+.theme-gold { background-image: url('assets/Vàng sang trọng.jpg') !important; color: #27272a !important; }
 .theme-gold .event-type { color: #b45309; }
 .theme-gold h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: #78350f; }
 
-/* Theme 8: Professional (Tối giản / Công việc) */
-.theme-professional {
-    background-image: url('assets/Professional.jpg') !important;
-    color: #1e293b !important;
-}
+.theme-professional { background-image: url('assets/Professional.jpg') !important; color: #1e293b !important; }
 .theme-professional .event-type { color: #1d4ed8; }
 .theme-professional h1 { font-family: 'Inter', sans-serif; font-weight: 700; color: #0f172a; }
-
 
 /* ==========================================================================
    6. RESPONSIVE (TƯƠNG THÍCH THIẾT BỊ)
    ========================================================================== */
 @media (max-width: 1024px) {
-    .editor-layout {
-        grid-template-columns: 1fr;
-    }
-    
-    .form-side {
-        height: auto;
-        position: relative;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-    }
-    
-    .preview-side {
-        padding: 30px 15px;
-    }
+    .editor-layout { grid-template-columns: 1fr; }
+    .form-side { height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); }
+    .preview-side { padding: 30px 15px; }
 }
 
 @media (max-width: 768px) {
-    header {
-        padding: 16px 20px;
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-
-    .header-flex {
-        flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
-    }
-
-    .header-flex button {
-        width: 100%;
-    }
-
-    main {
-        margin: 20px auto;
-    }
-
-    .grid-list {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-container {
-        padding: 30px 20px;
-    }
+    header { padding: 16px 20px; flex-direction: column; gap: 12px; text-align: center; }
+    .header-flex { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .header-flex button { width: 100%; }
+    main { margin: 20px auto; }
+    .grid-list { grid-template-columns: 1fr; }
+    .auth-container { padding: 30px 20px; }
     
+    /* Trên mobile vẫn giữ tỷ lệ khung thiệp vừa khít màn hình, không bị tràn lệch */
     #previewCard {
-        max-width: 320px;
-        min-height: 520px;
+        width: 310px !important;
+        height: 500px !important;
+        min-height: 500px !important;
         padding: 25px 20px;
     }
-
-    #previewCard h1 {
-        font-size: 22px !important;
-    }
+    #previewCard h1 { font-size: 21px !important; }
 }
