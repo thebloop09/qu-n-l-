@@ -376,3 +376,147 @@ main { max-width: 1200px; margin: 32px auto 60px; padding: 0 20px; }
     .detail-layout { grid-template-columns: 1fr; }
     .preview-panel { padding: 16px; }
 }
+
+
+/* ================= Responsive ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+    .editor-layout{
+        grid-template-columns: 1fr;
+        padding:20px;
+    }
+
+    .form-side{
+        max-height:none;
+        overflow:visible;
+        order:2;
+    }
+
+    .preview-side{
+        order:1;
+        padding:20px;
+    }
+
+    #previewCard{
+        max-width:420px;
+        width:100%;
+        min-height:520px;
+    }
+
+    header{
+        padding:15px 20px;
+    }
+
+    .header-flex{
+        flex-direction:column;
+        gap:15px;
+        align-items:flex-start;
+    }
+}
+
+
+/* Mobile */
+@media (max-width:768px){
+
+    body{
+        font-size:15px;
+    }
+
+    header{
+        flex-direction:column;
+        gap:12px;
+        text-align:center;
+    }
+
+    main{
+        margin:20px auto;
+        padding:15px;
+    }
+
+    .grid-list{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+    .auth-container{
+        width:92%;
+        margin:30px auto;
+        padding:24px;
+    }
+
+    .btn-group{
+        flex-direction:column;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .preview-side{
+        padding:10px;
+    }
+
+    #previewCard{
+        width:100%;
+        min-height:500px;
+        padding:25px;
+    }
+
+    #previewCard h1{
+        font-size:28px !important;
+    }
+
+    #previewCard .card-inner{
+        width:100%;
+        padding:18px;
+    }
+
+    .info-box{
+        width:100%;
+    }
+
+}
+
+
+/* Điện thoại nhỏ */
+@media (max-width:480px){
+
+    .auth-container{
+        padding:20px;
+    }
+
+    input,
+    select{
+        font-size:16px;
+    }
+
+    .header-flex h1{
+        font-size:22px;
+    }
+
+    #previewCard{
+        min-height:430px;
+        padding:20px;
+        border-radius:18px;
+    }
+
+    #previewCard h1{
+        font-size:24px !important;
+    }
+
+    .theme-modern h1,
+    .theme-classic h1,
+    .theme-elegant h1,
+    .theme-gold h1,
+    .theme-floral h1,
+    .theme-boho h1,
+    .theme-vibrant h1{
+        font-size:24px !important;
+    }
+
+}
