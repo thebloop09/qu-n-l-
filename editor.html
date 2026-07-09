@@ -7,6 +7,33 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+    <div style="font-weight: 700; font-size: 20px; color: var(--primary); cursor: pointer;" onclick="location.href='dashboard.html'">INVITO</div>
+    
+    <div class="user-menu-dropdown">
+        <button class="menu-trigger" onclick="toggleUserMenu()" title="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div id="userMenuContent" class="dropdown-content">
+            <div class="user-info-header">
+                <span style="font-size: 11px; color: var(--text-sub);">Tài khoản</span>
+                <span id="userEmail" class="user-email-text">Đang tải...</span>
+            </div>
+            
+            <hr class="dropdown-divider">
+            
+            <button id="themeToggleBtn" class="dropdown-item-btn">
+                <span id="themeIcon">🌙</span> <span id="themeText">Chế độ tối</span>
+            </button>
+            
+            <hr class="dropdown-divider">
+            
+            <button class="btn-danger-link" onclick="logout()">🚪 Đăng xuất</button>
+        </div>
+    </div>
+</header>
     <div class="editor-layout">
         <div class="form-side">
             <h2>Thiết kế thiệp</h2>
@@ -47,7 +74,6 @@
                     <option value="theme-elegant">Elegant (Sang trọng)</option>
                     <option value="theme-vibrant">Vibrant (Năng động)</option>
                     <!-- removed duplicate professional option -->
-                    <option value="theme-minimal">Minimal (Tối giản)</option>
                     <option value="theme-modern">Modern (Hiện đại)</option>
                     <option value="theme-floral">Floral (Hoa văn)</option>
                     <option value="theme-classic">Classic (Cổ điển)</option>
@@ -88,6 +114,15 @@
     <script src="auth.js"></script>
     <script src="storage.js"></script>
     <script src="main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Kiểm tra đăng nhập và tự động hiển thị Gmail lên navbar của Editor
+            await checkAuth(); 
+        });
+    </script>
+</body>
+</html>
 
 
 

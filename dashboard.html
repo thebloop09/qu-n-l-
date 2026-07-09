@@ -10,9 +10,29 @@
 <body>
     <header>
         <div style="font-weight: 700; font-size: 20px; color: var(--primary)">INVITO</div>
-        <div>
-            <span id="userEmail" style="margin-right: 15px; color: var(--text-sub)">Đang tải...</span>
-            <button class="btn-danger" onclick="logout()">Đăng xuất</button>
+        
+        <div class="user-menu-dropdown">
+            <button class="menu-trigger" onclick="toggleUserMenu()" title="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div id="userMenuContent" class="dropdown-content">
+                <div class="user-info-header">
+                    <span style="font-size: 11px; color: var(--text-sub);">Tài khoản</span>
+                    <span id="userEmail" class="user-email-text">Đang tải...</span>
+                </div>
+                
+                <hr class="dropdown-divider">
+                
+                <button id="themeToggleBtn" class="dropdown-item-btn">
+                    <span id="themeIcon">🌙</span> <span id="themeText">Chế độ tối</span>
+                </button>
+                
+                <hr class="dropdown-divider">
+                
+                <button class="btn-danger-link" onclick="logout()">🚪 Đăng xuất</button>
+            </div>
         </div>
     </header>
     <main>

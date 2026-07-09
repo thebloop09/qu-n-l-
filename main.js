@@ -1,4 +1,10 @@
 // Cập nhật Live Preview cho Editor
+// Đoạn này giúp tự động áp dụng theme đã lưu ngay khi vừa tải bất kỳ trang nào (Dashboard hoặc Editor)
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('app-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+});
+
 const inputs = ['eventType', 'mainTitle', 'subMessage', 'eventDate', 'location', 'themeSelect'];
 function adjustInputsForTheme(theme) {
     const main = document.getElementById('mainTitle');
@@ -343,3 +349,60 @@ function deleteCard(id) {
 
 // Khởi chạy render
 renderDashboard();
+// Hàm đóng mở menu 3 gạch
+function toggleUserMenu() {
+    const dropdown = document.getElementById('userMenuContent');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+    }
+}
+
+// Tự động đóng menu nếu người dùng click ra ngoài khu vực menu
+window.addEventListener('click', function(event) {
+    if (!event.target.closest('.user-menu-dropdown')) {
+        const dropdown = document.getElementById('userMenuContent');
+        if (dropdown && dropdown.classList.contains('show')) {
+            dropdown.classList.remove('show');
+        }
+    }
+});
+
+// LOGIC XỬ LÝ CHUYỂN ĐỔI GIAO DIỆN SÁNG / TỐI
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+
+    if (!themeToggleBtn) return;
+
+    // Hàm cập nhật chữ và icon hiển thị bên trong nút bấm
+    function updateButtonUI(theme) {
+        if (theme === 'dark') {
+            if (themeIcon) themeIcon.innerText = '☀️';
+            if (themeText) themeText.innerText = 'Chế độ sáng';
+        } else {
+            if (themeIcon) themeIcon.innerText = '🌙';
+            if (themeText) themeText.innerText = 'Chế độ tối';
+        }
+    }
+
+    // 1. Kiểm tra cấu hình giao diện đã lưu từ trước trong localStorage
+    const savedTheme = localStorage.getItem('app-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateButtonUI(savedTheme);
+
+    // 2. Lắng nghe sự kiện click vào nút đổi giao diện
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        let newTheme = 'light';
+
+        if (currentTheme === 'light') {
+            newTheme = 'dark';
+        }
+
+        // Thực hiện áp dụng theme mới và lưu lại trạng thái
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('app-theme', newTheme);
+        updateButtonUI(newTheme);
+    });
+});

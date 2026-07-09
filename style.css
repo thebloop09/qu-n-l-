@@ -359,3 +359,260 @@ main { max-width: 1200px; margin: 40px auto; padding: 0 24px; }
     }
     #previewCard h1 { font-size: 21px !important; }
 }
+/* ==========================================================================
+   CẤU HÌNH MENU 3 GẠCH & CHẾ ĐỘ TỐI CHUẨN (KHÔNG CHẠM VÀO THIỆP)
+   ========================================================================== */
+
+/* --- 1. ĐỊNH NGHĨA GIAO DIỆN TỐI (DARK MODE CHUẨF GOOGLE) --- */
+[data-theme="dark"] {
+    --bg: #121212;               /* Nền đen tối chuẩn cấu trúc của các web lớn */
+    --card: #1e1e1e;             /* Nền card quản lý tối */
+    --text-main: #e3e3e3;        /* Màu chữ chính hệ thống */
+    --text-sub: #aaaaaa;         /* Màu chữ phụ hệ thống */
+    --border: #2c2c2c;           /* Đường viền tối */
+
+    /* Nền web chung chuyển sang màu tối */
+    body {
+        background: var(--bg) !important;
+        color: var(--text-main) !important;
+    }
+
+    /* Đảm bảo chữ tiêu đề trang dashboard và editor hiển thị rõ ràng */
+    h1, h2, h3, .header-flex h1, .form-side h2 {
+        color: var(--text-main) !important;
+    }
+
+    /* Thanh navbar đổi sang màu Gradient Xanh Tím khi ở chế độ tối */
+    header {
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        border-bottom: 1px solid transparent;
+    }
+    
+    /* Chữ INVITO trên thanh navbar đổi thành màu trắng */
+    header div[style*="color: var(--primary)"] {
+        color: #ffffff !important;
+    }
+
+    /* Đổi 3 vạch của menu hamburger thành màu trắng trên nền gradient */
+    header .menu-trigger span {
+        background-color: #ffffff !important;
+    }
+
+    /* Hệ thống nút bấm đổi đồng bộ sang Gradient Xanh Tím */
+    .btn-primary, .btn-secondary, .card button, .header-flex button, #btnSave, .form-side button {
+        background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+        box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3) !important;
+    }
+    .btn-primary:hover, .btn-secondary:hover, .card button:hover, #btnSave:hover, .form-side button:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%) !important;
+        opacity: 0.95;
+    }
+
+    /* ---- CẤU HÌNH BIỆT LẬP CHO TRANG EDITOR ---- */
+    /* Ép nền của khu vực nhập liệu Form trái sang màu tối */
+    .form-side {
+        background: var(--card) !important;
+        border-right: 1px solid var(--border) !important;
+    }
+    .input-group label {
+        color: var(--text-main) !important;
+    }
+    /* Đổi màu nền của các ô input, select sang màu xám tối và chữ màu sáng */
+    input[type="text"], input[type="email"], input[type="password"], input[type="date"], select {
+        background-color: #2d3748 !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text-main) !important;
+    }
+    /* Khung preview chứa thiệp bên phải: chỉ làm tối vùng không gian bao quanh thiệp */
+    .preview-side {
+        background: #1a202c !important;
+    }
+
+    /* !!! TUYỆT ĐỐI KHÔNG ẢNH HƯỞNG ĐẾN THIỆP MỜI VÀ CHỮ TRÊN THIỆP !!! */
+    #previewCard, #previewCard *, .theme-elegant, .theme-elegant * {
+        background-color: initial !important;
+        color: initial !important;
+    }
+}
+
+/* --- 2. GIAO DIỆN MENU VÀ DROPDOWN CHUNG --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: var(--card);
+    border-bottom: 1px solid var(--border);
+}
+.user-menu-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.menu-trigger {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    padding: 0;
+}
+.menu-trigger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-main);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 32px;
+    background-color: var(--card);
+    min-width: 220px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    z-index: 1000;
+    padding: 6px 0;
+}
+.dropdown-content.show {
+    display: block;
+}
+.user-info-header {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 16px;
+    text-align: left;
+}
+.user-email-text {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 13px;
+    word-break: break-all;
+    margin-top: 2px;
+}
+.dropdown-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 6px 0;
+}
+.dropdown-item-btn {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    color: var(--text-main);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.2s;
+}
+.dropdown-item-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+[data-theme="dark"] .dropdown-item-btn:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+.btn-danger-link {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    color: var(--danger);
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.btn-danger-link:hover {
+    background-color: rgba(239, 68, 68, 0.08);
+}
+
+/* Sửa lại layout một chút để cân đối khi có Navbar ở Editor */
+.editor-layout {
+    height: calc(100vh - 62px) !important;
+}
+/* ==========================================================================
+   TÙY BIẾN SELECT / DROPDOWN CHUYÊN NGHIỆP & HIỆN ĐẠI
+   ========================================================================== */
+
+/* 1. Thiết lập kiểu dáng chung cho thanh select */
+select {
+    width: 100%;
+    padding: 12px 42px 12px 16px; /* Để trống space bên phải cho mũi tên custom */
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--text-main);
+    background-color: #ffffff;
+    
+    /* Mũi tên custom SVG đẹp mắt (Chevron Down) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='%2 4b5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px 16px;
+
+    /* Tắt mũi tên mặc định của hệ thống */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 2. Hiệu ứng khi rê chuột qua (Hover) */
+select:hover {
+    border-color: var(--primary);
+    background-color: #fafafa;
+}
+
+/* 3. Hiệu ứng khi đang chọn / focus */
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.18);
+    background-color: #ffffff;
+}
+
+/* 4. Định kiểu cho danh sách danh mục bên trong (option) */
+select option {
+    background-color: #ffffff;
+    color: var(--text-main);
+    padding: 10px;
+    font-size: 14.5px;
+}
+
+/* 5. Tùy biến cho Giao diện tối (Dark Mode) */
+[data-theme="dark"] select {
+    background-color: #262626 !important;
+    border-color: #3f3f46 !important;
+    color: #f4f4f5 !important;
+    
+    /* Mũi tên màu trắng sáng cho Dark Mode */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2' stroke='%23e4e4e7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E") !important;
+}
+
+[data-theme="dark"] select:hover {
+    background-color: #2d2d30 !important;
+    border-color: var(--accent) !important;
+}
+
+[data-theme="dark"] select option {
+    background-color: #262626;
+    color: #f4f4f5;
+}
